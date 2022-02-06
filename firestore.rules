@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /transactions/{document=**} {
+      //allow read, write;
+
+
+      allow create: if request.auth !=null;
+
+      // drugi deo 
+
+      allow read, delete: if request.auth.uid == resource.data.userId;
+    }
+  }
+}
